@@ -221,6 +221,60 @@ footer p{color:var(--grey);font-size:0.75rem}
 .stat-num{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;color:var(--orange);line-height:1;margin-bottom:0.25rem}
 .stat-label{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--grey)}
 @media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* === AI CHAT WIDGET === */
+.chat-fab{position:fixed;bottom:5.5rem;right:1.5rem;z-index:1100;width:56px;height:56px;background:var(--orange);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(242,107,29,0.45);transition:transform 0.25s,box-shadow 0.25s}
+.chat-fab:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(242,107,29,0.6)}
+.chat-fab svg{transition:transform 0.3s,opacity 0.3s;position:absolute}
+.chat-fab .ic-chat{opacity:1;transform:scale(1)}
+.chat-fab .ic-close{opacity:0;transform:scale(0.5) rotate(-45deg)}
+.chat-fab.open .ic-chat{opacity:0;transform:scale(0.5) rotate(45deg)}
+.chat-fab.open .ic-close{opacity:1;transform:scale(1) rotate(0deg)}
+.chat-badge{position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:var(--green);border-radius:50%;border:2px solid var(--dark);animation:pulse 2s infinite}
+
+.chat-panel{position:fixed;bottom:7.5rem;right:1.5rem;z-index:1099;width:340px;max-height:520px;display:flex;flex-direction:column;background:var(--charcoal);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.5);transform:translateY(20px) scale(0.96);opacity:0;pointer-events:none;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);overflow:hidden}
+.chat-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all}
+
+.chat-head{background:linear-gradient(135deg,var(--orange-d),var(--orange));padding:1rem 1.2rem;display:flex;align-items:center;gap:0.75rem;flex-shrink:0}
+.chat-head-avatar{width:38px;height:38px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.chat-head-info{flex:1;min-width:0}
+.chat-head-name{font-family:'Oswald',sans-serif;font-size:0.95rem;font-weight:600;color:var(--white);letter-spacing:0.5px}
+.chat-head-status{font-size:0.72rem;color:rgba(255,255,255,0.8);display:flex;align-items:center;gap:0.35rem;margin-top:1px}
+.chat-head-status::before{content:'';width:6px;height:6px;background:#4ade80;border-radius:50%;flex-shrink:0}
+
+.chat-msgs{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;scroll-behavior:smooth}
+.chat-msgs::-webkit-scrollbar{width:3px}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.msg{display:flex;gap:0.5rem;align-items:flex-end;max-width:100%}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-avatar{width:28px;height:28px;background:rgba(242,107,29,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0}
+.msg-bubble{padding:0.6rem 0.9rem;border-radius:14px;font-size:0.875rem;line-height:1.55;max-width:230px;word-wrap:break-word}
+.msg.bot .msg-bubble{background:var(--panel);border:1px solid var(--border);color:var(--light);border-bottom-left-radius:4px}
+.msg.user .msg-bubble{background:var(--orange);color:var(--white);border-bottom-right-radius:4px}
+
+.typing-indicator{display:flex;align-items:center;gap:3px;padding:0.7rem 1rem}
+.typing-indicator span{width:6px;height:6px;background:var(--grey);border-radius:50%;animation:typing-bounce 1.2s infinite}
+.typing-indicator span:nth-child(2){animation-delay:0.2s}
+.typing-indicator span:nth-child(3){animation-delay:0.4s}
+@keyframes typing-bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+
+.chat-quick{padding:0.5rem 1rem;display:flex;flex-wrap:wrap;gap:0.4rem;border-top:1px solid var(--border);flex-shrink:0}
+.qbtn{padding:0.3rem 0.75rem;background:transparent;border:1px solid rgba(242,107,29,0.35);border-radius:100px;color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.qbtn:hover{background:var(--orange);color:var(--white);border-color:var(--orange)}
+
+.chat-input-row{display:flex;gap:0.5rem;padding:0.75rem 1rem;border-top:1px solid var(--border);flex-shrink:0;background:var(--darker)}
+.chat-input{flex:1;background:var(--steel);border:1px solid var(--border);border-radius:8px;padding:0.55rem 0.85rem;color:var(--light);font-family:'Barlow',sans-serif;font-size:0.875rem;outline:none;transition:border-color 0.2s;resize:none}
+.chat-input:focus{border-color:var(--orange)}
+.chat-send{width:36px;height:36px;background:var(--orange);border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;flex-shrink:0;align-self:flex-end}
+.chat-send:hover{background:var(--orange-l)}
+.chat-send:disabled{opacity:0.5;cursor:not-allowed}
+
+@media(max-width:768px){
+  .chat-fab{bottom:6rem}
+  .chat-panel{bottom:8rem;right:1rem;left:1rem;width:auto}
+}
 </style>
 </head>
 <body>
@@ -516,5 +570,210 @@ function handleBooking(e){e.preventDefault();const t=document.getElementById('to
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target)}})},{threshold:0.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
+
+<!-- AI CHAT WIDGET -->
+<button class="chat-fab" id="chatFab" aria-label="Chat with us">
+  <span class="chat-badge"></span>
+  <!-- chat icon -->
+  <svg class="ic-chat" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <!-- close icon -->
+  <svg class="ic-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>
+</button>
+
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat with Road Runner Hauling">
+  <div class="chat-head">
+    <div class="chat-head-avatar">&#128663;</div>
+    <div class="chat-head-info">
+      <div class="chat-head-name">Road Runner Assistant</div>
+      <div class="chat-head-status">Online — typically replies instantly</div>
+    </div>
+  </div>
+  <div class="chat-msgs" id="chatMsgs"></div>
+  <div class="chat-quick" id="chatQuick">
+    <button class="qbtn" data-q="How much does junk removal cost?">Pricing</button>
+    <button class="qbtn" data-q="Do you offer same-day service?">Same-Day</button>
+    <button class="qbtn" data-q="What areas do you serve?">Service Areas</button>
+    <button class="qbtn" data-q="How do I book a pickup?">Book Now</button>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chatInput" type="text" placeholder="Ask anything..." maxlength="300" autocomplete="off">
+    <button class="chat-send" id="chatSend" aria-label="Send">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  const fab   = document.getElementById('chatFab');
+  const panel = document.getElementById('chatPanel');
+  const msgs  = document.getElementById('chatMsgs');
+  const input = document.getElementById('chatInput');
+  const send  = document.getElementById('chatSend');
+  const quick = document.getElementById('chatQuick');
+  let open = false, typing = false;
+
+  // ── Response knowledge base ──────────────────────────────────────────────
+  const KB = [
+    {
+      keys: ['price','cost','how much','quote','estimate','fee','charge','rate'],
+      reply: "Every job is different, so we give free, no-obligation estimates. Junk removal typically starts around $75–$150 depending on volume. Call <a href='tel:+12105551234' style='color:var(--orange)'>(210) 555-1234</a> or use the form below for a fast quote!"
+    },
+    {
+      keys: ['same day','today','urgent','quick','fast','asap','right away','now'],
+      reply: "Yes! Same-day service is available based on crew availability. Call us at <a href='tel:+12105551234' style='color:var(--orange)'>(210) 555-1234</a> first thing — we'll do our best to fit you in."
+    },
+    {
+      keys: ['area','serve','location','city','where','zip','neighborhood','county','nearby'],
+      reply: "We serve San Antonio and the surrounding areas including Helotes, Schertz, Converse, Universal City, Live Oak, Leon Valley, Alamo Heights, Boerne, and more. Drop your ZIP in the booking form and we'll confirm!"
+    },
+    {
+      keys: ['book','schedule','appointment','reserve','set up','when','date','time','available'],
+      reply: "Easy! Fill out the <a href='#booking' style='color:var(--orange)'>free estimate form</a> on this page, or call/text <a href='tel:+12105551234' style='color:var(--orange)'>(210) 555-1234</a>. We respond within hours and confirm your slot."
+    },
+    {
+      keys: ['junk','removal','furniture','appliance','couch','sofa','mattress','tv','debris','trash','cleanout','clean out','yard','waste'],
+      reply: "We haul almost anything — furniture, appliances, electronics, yard waste, construction debris, and more. Residential or commercial. Same-day pickups available!"
+    },
+    {
+      keys: ['tree','trees','stump','branch','trim','removal','land','clearing','cut'],
+      reply: "Our tree services include trimming, full removal, stump grinding, and land clearing. From a single branch to full-scale clearing — we handle it all and leave the site clean."
+    },
+    {
+      keys: ['heavy','machinery','excavator','bulldozer','skid','equipment','tractor','loader','crane'],
+      reply: "We transport excavators, bulldozers, skid steers, tractors, and other heavy equipment using properly rated trailers and experienced operators. We haul it safely, on schedule."
+    },
+    {
+      keys: ['car','vehicle','truck','suv','auto','transport','dealership','auction','tow'],
+      reply: "We haul cars, trucks, and SUVs for dealership runs, auction pickups, or personal moves. Enclosed and open options available — just let us know what you need."
+    },
+    {
+      keys: ['insured','license','insurance','bonded','certified','safe','legit'],
+      reply: "Yes — Road Runner Hauling is fully licensed and insured. You can book with complete confidence."
+    },
+    {
+      keys: ['contact','phone','number','call','text','email','reach','talk'],
+      reply: "You can reach us by phone or text at <a href='tel:+12105551234' style='color:var(--orange)'>(210) 555-1234</a>, or email <a href='mailto:info@roadrunnerhauling.com' style='color:var(--orange)'>info@roadrunnerhauling.com</a>. We're quick to respond!"
+    },
+    {
+      keys: ['hours','open','weekend','saturday','sunday','holiday'],
+      reply: "We work 7 days a week including weekends! Hours vary by season — call or text <a href='tel:+12105551234' style='color:var(--orange)'>(210) 555-1234</a> to check availability for your date."
+    },
+    {
+      keys: ['payment','pay','cash','credit','card','venmo','zelle','check'],
+      reply: "We accept cash, all major credit cards, Venmo, Zelle, and personal checks. Payment is due upon job completion."
+    },
+  ];
+
+  const fallbacks = [
+    "Great question! For specifics, call or text us at <a href='tel:+12105551234' style='color:var(--orange)'>(210) 555-1234</a> — we're happy to help.",
+    "I'm not sure about that one, but our team can answer it fast. Reach out at <a href='tel:+12105551234' style='color:var(--orange)'>(210) 555-1234</a> or use the <a href='#booking' style='color:var(--orange)'>booking form</a>.",
+    "Good question — it depends on the job. Give us a call at <a href='tel:+12105551234' style='color:var(--orange)'>(210) 555-1234</a> for a straight answer!"
+  ];
+  let fallbackIdx = 0;
+
+  function getReply(text) {
+    const t = text.toLowerCase();
+    for (const entry of KB) {
+      if (entry.keys.some(k => t.includes(k))) return entry.reply;
+    }
+    return fallbacks[fallbackIdx++ % fallbacks.length];
+  }
+
+  // ── DOM helpers ──────────────────────────────────────────────────────────
+  function addMsg(text, role) {
+    const wrap = document.createElement('div');
+    wrap.className = 'msg ' + role;
+    if (role === 'bot') {
+      wrap.innerHTML = '<div class="msg-avatar">&#129302;</div><div class="msg-bubble">' + text + '</div>';
+    } else {
+      wrap.innerHTML = '<div class="msg-bubble">' + escHtml(text) + '</div>';
+    }
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+    return wrap;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function showTyping() {
+    const t = document.createElement('div');
+    t.className = 'msg bot';
+    t.id = 'typingMsg';
+    t.innerHTML = '<div class="msg-avatar">&#129302;</div><div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>';
+    msgs.appendChild(t);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typingMsg');
+    if (t) t.remove();
+  }
+
+  function respond(userText) {
+    if (typing) return;
+    typing = true;
+    send.disabled = true;
+    showTyping();
+    setTimeout(function() {
+      removeTyping();
+      addMsg(getReply(userText), 'bot');
+      typing = false;
+      send.disabled = false;
+      input.focus();
+    }, 900 + Math.random() * 500);
+  }
+
+  function submit() {
+    const text = input.value.trim();
+    if (!text || typing) return;
+    addMsg(text, 'user');
+    input.value = '';
+    // Hide quick buttons after first user message
+    quick.style.display = 'none';
+    respond(text);
+  }
+
+  // ── Open / close ─────────────────────────────────────────────────────────
+  fab.addEventListener('click', function() {
+    open = !open;
+    fab.classList.toggle('open', open);
+    panel.classList.toggle('open', open);
+    if (open && msgs.children.length === 0) {
+      // Greeting
+      setTimeout(function() {
+        addMsg("Hey there! 👋 I'm the Road Runner assistant. Ask me about pricing, services, availability — or anything else. How can I help?", 'bot');
+      }, 300);
+    }
+    if (open) setTimeout(function(){ input.focus(); }, 350);
+  });
+
+  // ── Quick buttons ────────────────────────────────────────────────────────
+  quick.addEventListener('click', function(e) {
+    const btn = e.target.closest('.qbtn');
+    if (!btn) return;
+    const q = btn.dataset.q;
+    addMsg(q, 'user');
+    quick.style.display = 'none';
+    respond(q);
+  });
+
+  // ── Input ────────────────────────────────────────────────────────────────
+  send.addEventListener('click', submit);
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(); }
+  });
+})();
+</script>
+
 </body>
 </html>
